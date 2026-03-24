@@ -1,0 +1,68 @@
+@import './base.css';
+@import './variables.css';
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+/* Tela cheia para rotas de autenticacao */
+#app:has(.full-screen) {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  grid-template-columns: none !important;
+}
+
+#app:has(.full-screen) .full-screen {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body:has(.full-screen) {
+  background: #EAF0FA !important;
+}
+
+/* Forcar tema claro nas telas de autenticacao (ignora dark mode do sistema) */
+@media (prefers-color-scheme: dark) {
+  body:has(.full-screen) {
+    background: #EAF0FA !important;
+  }
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: #1155CC;
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: rgba(17, 85, 204, 0.15);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+
+  /* Reset para tela cheia no desktop */
+  #app:has(.full-screen) {
+    display: block;
+    grid-template-columns: none;
+  }
+}

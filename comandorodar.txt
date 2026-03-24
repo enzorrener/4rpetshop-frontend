@@ -1,0 +1,18 @@
+Rode: npm run deploy
+cp -r dist/*
+./deploy.sh
+
+************************
+cp index.source.html index.html && npm run build && cp dist/index.html index.html && cp -r dist/assets/* assets/
+
+  Esse comando faz:
+  1. Restaura o index.html fonte para o Vite                                                 
+  2. Executa o build                                                 
+  3. Copia os arquivos compilados para producao
+************************
+
+root@srv1211850:/home/enzorrener/web/4rpetshop.srv1211850.hstgr.cloud/public_html#
+
+(informacao tela cheia)
+a rota cadastroPet nao estava incluida no array fullScreenRoutes. Sem isso, o div wrapper da pagina nao recebia a classe full-screen (que aplica width: 100% e           
+  min-height: 100vh), causando o conteudo centralizado com bordas escuras nas laterais.
