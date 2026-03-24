@@ -143,48 +143,6 @@
             </div>
           </div>
 
-          <!-- Seção: Logo -->
-          <div class="form-section">
-            <div class="form-section-header">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
-              Logo da Marca <span class="optional-tag">(opcional)</span>
-            </div>
-
-            <div class="upload-area" :class="{ 'has-image': !!logoPreview }" @click="triggerFileInput" @dragover.prevent @drop.prevent="onLogoDrop">
-              <template v-if="logoPreview">
-                <img :src="logoPreview" alt="Logo preview" class="upload-preview-img" />
-                <div class="upload-overlay">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-                  </svg>
-                  <span>Clique para alterar</span>
-                </div>
-              </template>
-              <template v-else>
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                  <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
-                <div class="upload-text">
-                  <span class="upload-label">Clique ou arraste o arquivo</span>
-                  <span class="upload-hint">PNG, JPG, WEBP, GIF — máximo 2MB</span>
-                </div>
-              </template>
-            </div>
-
-            <button v-if="logoPreview" type="button" class="btn-remove-logo" @click.stop="removerLogo">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="3 6 5 6 21 6"/>
-                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-              </svg>
-              Remover logo
-            </button>
-          </div>
-
           <!-- Ações -->
           <div class="form-actions">
             <router-link to="/admin/produtos" class="btn-secondary">Cancelar</router-link>
@@ -258,23 +216,6 @@ const onLogoSelecionado = (e) => {
   const reader = new FileReader()
   reader.onload = ev => { logoPreview.value = ev.target.result }
   reader.readAsDataURL(file)
-}
-
-const onLogoDrop = (e) => {
-  const file = e.dataTransfer.files[0]
-  if (!file || !file.type.startsWith('image/')) return
-  logoFile.value = file
-  logoRemovida.value = false
-  const reader = new FileReader()
-  reader.onload = ev => { logoPreview.value = ev.target.result }
-  reader.readAsDataURL(file)
-}
-
-const removerLogo = () => {
-  logoPreview.value = null
-  logoFile.value = null
-  logoRemovida.value = true
-  if (fileInputRef.value) fileInputRef.value.value = ''
 }
 
 const fetchMarca = async () => {

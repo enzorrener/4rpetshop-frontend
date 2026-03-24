@@ -159,6 +159,54 @@
       </div>
     </section>
 
+    <!-- ===== NOTÍCIAS ===== -->
+    <section id="noticias" class="section-noticias">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-badge">Fique por dentro</span>
+          <h2 class="section-title">Notícias e Dicas</h2>
+          <p class="section-subtitle">Conteúdo sobre saúde, bem-estar e cuidados para o seu pet</p>
+        </div>
+
+        <div v-if="loadingNoticias" class="noticias-home-grid">
+          <div class="noticia-home-skeleton" v-for="i in 3" :key="i"></div>
+        </div>
+
+        <div v-else-if="noticias.length === 0" class="noticias-empty">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <p>Em breve, novidades por aqui!</p>
+        </div>
+
+        <div v-else class="noticias-home-grid">
+          <div
+            v-for="noticia in noticias"
+            :key="noticia.id"
+            class="noticia-home-card"
+            @click="abrirNoticia(noticia)"
+          >
+            <div class="noticia-home-img" :style="{ background: getNoticiaGradient(noticia.categoria) }">
+              <img v-if="noticia.foto_capa_url" :src="noticia.foto_capa_url" :alt="noticia.titulo" class="noticia-home-img-real" />
+              <svg v-else width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.6">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="noticia-home-body">
+              <span class="noticia-home-tag" :class="`htag-${noticia.categoria}`">{{ getNoticiaLabel(noticia.categoria) }}</span>
+              <h3 class="noticia-home-titulo">{{ noticia.titulo }}</h3>
+              <p class="noticia-home-desc">{{ noticia.subtitulo ? noticia.subtitulo.substring(0, 110) + '...' : '' }}</p>
+              <span class="noticia-home-link">Ler mais →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== CTA ===== -->
     <section id="contato" class="section-cta">
       <div class="cta-container">
@@ -205,9 +253,105 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import api from '@/services/api'
+import Swal from 'sweetalert2'
 
 const menuOpen = ref(false)
 const isScrolled = ref(false)
+const noticias = ref([])
+const loadingNoticias = ref(false)
+
+const noticiasCategorias = {
+  noticia: 'Notícia', dica: 'Dica',
+  curiosidade: 'Curiosidade', promocao: 'Promoção'
+}
+const getNoticiaLabel = (cat) => noticiasCategorias[cat] || cat
+const getNoticiaGradient = (cat) => {
+  const map = {
+    noticia: 'linear-gradient(135deg,#1155CC,#0A3080)',
+    dica: 'linear-gradient(135deg,#F07020,#c85a10)',
+    curiosidade: 'linear-gradient(135deg,#4CAF50,#2e7d32)',
+    promocao: 'linear-gradient(135deg,#E53935,#B71C1C)'
+  }
+  return map[cat] || 'linear-gradient(135deg,#607D8B,#37474F)'
+}
+
+const catBadgeStyle = {
+  noticia:     'background:#DBEAFE;color:#1D4ED8',
+  dica:        'background:#FEF3C7;color:#D97706',
+  curiosidade: 'background:#DCFCE7;color:#16A34A',
+  promocao:    'background:#FEE2E2;color:#DC2626'
+}
+
+const abrirNoticia = (noticia) => {
+  const gradient = getNoticiaGradient(noticia.categoria)
+  const badge    = catBadgeStyle[noticia.categoria] || 'background:#F1F5F9;color:#64748B'
+  const label    = getNoticiaLabel(noticia.categoria)
+  const dataFmt  = (noticia.publicado_em || noticia.created_at)
+    ? new Date(noticia.publicado_em || noticia.created_at)
+        .toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' })
+    : ''
+
+  const heroHtml = noticia.foto_capa_url
+    ? `<div style="width:100%;height:240px;overflow:hidden;border-radius:0;position:relative">
+        <img src="${noticia.foto_capa_url}" alt="${noticia.titulo}"
+          style="width:100%;height:100%;object-fit:cover;display:block"/>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,31,68,0.65))"></div>
+       </div>`
+    : `<div style="width:100%;height:160px;background:${gradient};border-radius:0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:0.08;background:radial-gradient(circle at 70% 30%,white,transparent)"></div>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+       </div>`
+
+  const paragrafos = (noticia.conteudo || '')
+    .split('\n')
+    .map(p => p.trim())
+    .filter(p => p)
+    .map(p => `<p style="margin:0 0 14px;line-height:1.8;color:#374151;font-size:15px">${p}</p>`)
+    .join('')
+
+  Swal.fire({
+    html: `
+      <div style="text-align:left;font-family:inherit">
+        ${heroHtml}
+        <div style="padding:22px 24px 8px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+            <span style="${badge};font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.07em">${label}</span>
+            ${dataFmt ? `<span style="font-size:12px;color:#94A3B8;font-weight:500">${dataFmt}</span>` : ''}
+          </div>
+          <h2 style="font-size:20px;font-weight:800;color:#0A1F44;line-height:1.35;margin:0 0 10px">${noticia.titulo}</h2>
+          ${noticia.subtitulo ? `<p style="font-size:14px;color:#64748B;line-height:1.65;margin:0 0 18px;padding:12px 14px;background:#F8FAFF;border-left:3px solid #1155CC;border-radius:0 8px 8px 0;font-style:italic">${noticia.subtitulo}</p>` : ''}
+          <div style="max-height:38vh;overflow-y:auto;padding-right:6px;margin-top:2px">
+            ${paragrafos || '<p style="color:#94A3B8;font-size:14px">Sem conteúdo disponível.</p>'}
+          </div>
+        </div>
+      </div>`,
+    showConfirmButton: true,
+    confirmButtonText: 'Fechar',
+    confirmButtonColor: '#0A3080',
+    width: '660px',
+    padding: '0',
+    background: '#fff',
+    customClass: { popup: 'swal-noticia-popup', confirmButton: 'swal-noticia-btn' }
+  })
+}
+
+const fetchNoticias = async () => {
+  loadingNoticias.value = true
+  try {
+    const response = await api.get('/noticias')
+    noticias.value = (response.data.data || response.data || []).slice(0, 6)
+  } catch {
+    noticias.value = []
+  } finally {
+    loadingNoticias.value = false
+  }
+}
 
 // TODO: substituir pelo número real de WhatsApp (somente números com DDI)
 const whatsappNumber = '77991990039'
@@ -222,7 +366,10 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
 }
 
-onMounted(() => window.addEventListener('scroll', handleScroll))
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+  fetchNoticias()
+})
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>
 
@@ -643,7 +790,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   border-radius: var(--border-radius-xl);
   border: 1px solid var(--border-color);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
-  text-align: center;
+  text-align: left;
 }
 
 .servico-card:hover {
@@ -660,7 +807,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.25rem;
+  margin: 0 0 1.25rem;
   color: #fff;
 }
 
@@ -674,7 +821,8 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 .servico-desc {
   font-size: 0.925rem;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.75;
+  text-align: left;
 }
 
 /* ===== SOBRE ===== */
@@ -725,6 +873,8 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 1rem;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .sobre-text strong {
@@ -768,6 +918,105 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   height: 40px;
   background: var(--border-color);
   flex-shrink: 0;
+}
+
+/* ===== NOTÍCIAS HOME ===== */
+.section-noticias {
+  padding: 5rem 0;
+  background: #F8FAFC;
+}
+
+.noticias-home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-top: 2.5rem;
+}
+
+.noticias-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: #94A3B8;
+  font-size: 15px;
+}
+
+.noticia-home-skeleton {
+  height: 320px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #E8ECF0 25%, #F1F5F9 50%, #E8ECF0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+.noticia-home-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #E8ECF0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.noticia-home-card:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+
+.noticia-home-img {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.noticia-home-img-real { width: 100%; height: 100%; object-fit: cover; }
+
+.noticia-home-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.noticia-home-tag {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 3px 10px; border-radius: 20px; align-self: flex-start;
+}
+.htag-noticia   { color: #1D4ED8; background: #DBEAFE; }
+.htag-dica      { color: #D97706; background: #FEF3C7; }
+.htag-curiosidade { color: #16A34A; background: #DCFCE7; }
+.htag-promocao  { color: #DC2626; background: #FEE2E2; }
+
+.noticia-home-titulo {
+  font-size: 18px; font-weight: 800; color: #0A1F44;
+  line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.noticia-home-desc {
+  font-size: 14px; color: #64748B; line-height: 1.65;
+  display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  flex: 1;
+}
+.noticia-home-link {
+  font-size: 14px; font-weight: 600; color: #0A3080;
+  margin-top: auto; padding-top: 6px;
+}
+.noticia-home-card:hover .noticia-home-link { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .noticias-home-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .noticias-home-grid { grid-template-columns: 1fr; }
+  .section-noticias { padding: 3rem 0; }
 }
 
 /* ===== CTA ===== */
@@ -961,5 +1210,29 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   .section-title { font-size: 2.5rem; }
   .sobre-img { height: 350px; }
   .cta-title { font-size: 2.5rem; }
+}
+</style>
+
+<style>
+.swal-noticia-popup {
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+.swal-noticia-popup .swal2-html-container {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+.swal-noticia-popup .swal2-actions {
+  margin: 0 !important;
+  padding: 16px 24px 20px !important;
+  justify-content: flex-end !important;
+}
+.swal-noticia-btn {
+  border-radius: 10px !important;
+  padding: 10px 28px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
 }
 </style>

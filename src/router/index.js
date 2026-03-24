@@ -22,6 +22,10 @@ import CadastroTrajetoView from '@/views/admin/CadastroTrajetoView.vue'
 import DetalhesTrajetoView from '@/views/admin/DetalhesTrajetoView.vue'
 import VeiculosView from '@/views/admin/VeiculosView.vue'
 import CadastroVeiculoView from '@/views/admin/CadastroVeiculoView.vue'
+import AdminNoticiasView from '@/views/admin/AdminNoticiasView.vue'
+import CadastroNoticiaView from '@/views/admin/CadastroNoticiaView.vue'
+import CadastroProdutoView from '@/views/admin/CadastroProdutoView.vue'
+import AdminMarcasListView from '@/views/admin/AdminMarcasListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -137,6 +141,21 @@ const router = createRouter({
       component: AdminProdutosView
     },
     {
+      path: '/admin/produtos/cadastro',
+      name: 'cadastroProduto',
+      component: CadastroProdutoView
+    },
+    {
+      path: '/admin/produtos/:id',
+      name: 'editarProduto',
+      component: CadastroProdutoView
+    },
+    {
+      path: '/admin/marcas',
+      name: 'adminMarcas',
+      component: AdminMarcasListView
+    },
+    {
       path: '/admin/produtos/marcas',
       name: 'adminProdutosMarcasNovo',
       component: AdminProdutosMarcasView
@@ -145,6 +164,21 @@ const router = createRouter({
       path: '/admin/produtos/marcas/:id',
       name: 'adminProdutosMarcasEditar',
       component: AdminProdutosMarcasView
+    },
+    {
+      path: '/admin/noticias',
+      name: 'adminNoticias',
+      component: AdminNoticiasView
+    },
+    {
+      path: '/admin/noticias/nova',
+      name: 'novaNoticia',
+      component: CadastroNoticiaView
+    },
+    {
+      path: '/admin/noticias/:id',
+      name: 'editarNoticia',
+      component: CadastroNoticiaView
     }
   ]
 })

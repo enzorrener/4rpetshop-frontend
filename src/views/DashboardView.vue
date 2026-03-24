@@ -245,70 +245,39 @@
       <div class="noticias-section">
         <div class="section-header">
           <h2 class="section-title">Últimas Notícias</h2>
-          <a href="#" class="section-link">Ver Todas</a>
         </div>
-        <div class="noticias-grid">
-          <!-- Card grande esquerda -->
-          <div class="noticia-card noticia-left">
-            <div class="noticia-img" style="background: linear-gradient(135deg,#1155CC 0%,#0A3080 100%)">
-              <svg width="48" height="48" viewBox="0 0 56 56" fill="none">
-                <ellipse cx="17.5" cy="14" rx="5.5" ry="7" fill="white" opacity="0.7"/>
-                <ellipse cx="38.5" cy="14" rx="5.5" ry="7" fill="white" opacity="0.7"/>
-                <ellipse cx="10" cy="28" rx="5" ry="6.5" fill="white" opacity="0.7"/>
-                <ellipse cx="46" cy="28" rx="5" ry="6.5" fill="white" opacity="0.7"/>
-                <path d="M18 38c0-7 4.5-11 10-11s10 4 10 11c0 5-4.5 8-10 8s-10-3-10-8z" fill="white" opacity="0.7"/>
+
+        <div v-if="loadingNoticias" class="noticias-loading">
+          <span class="noticia-skeleton" v-for="i in 3" :key="i"></span>
+        </div>
+
+        <div v-else-if="noticias.length === 0" class="noticias-dash-empty">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <p>Em breve, novidades por aqui!</p>
+        </div>
+
+        <div v-else class="noticias-scroll">
+          <div
+            v-for="noticia in noticias"
+            :key="noticia.id"
+            class="noticia-card-dyn"
+            @click="abrirNoticia(noticia)"
+          >
+            <div class="noticia-img-dyn" :style="{ background: getNoticiaGradient(noticia.categoria) }">
+              <img v-if="noticia.foto_capa_url" :src="noticia.foto_capa_url" :alt="noticia.titulo" class="noticia-img-real" />
+              <svg v-else width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.7">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
               </svg>
             </div>
-            <div class="noticia-body">
-              <span class="noticia-tag">Saúde</span>
-              <h3 class="noticia-titulo">Como cuidar da alimentação do seu cão adulto</h3>
-              <p class="noticia-desc">Entenda a importância da dieta balanceada e os principais nutrientes essenciais para a saúde do seu pet.</p>
-              <a href="#" class="noticia-link">Leia Mais →</a>
-            </div>
-          </div>
-          <!-- Dois cards centrais -->
-          <div class="noticias-center">
-            <div class="noticia-card noticia-small">
-              <div class="noticia-img noticia-img-sm" style="background: linear-gradient(135deg,#F07020 0%,#c85a10 100%)">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="white"/>
-                  <line x1="9" y1="9" x2="9.01" y2="9" stroke="white" stroke-width="3"/>
-                  <line x1="15" y1="9" x2="15.01" y2="9" stroke="white" stroke-width="3"/>
-                </svg>
-              </div>
-              <div class="noticia-body-sm">
-                <span class="noticia-tag noticia-tag-orange">Comportamento</span>
-                <h3 class="noticia-titulo-sm">Sinais de estresse em gatos</h3>
-                <a href="#" class="noticia-link">Leia Mais →</a>
-              </div>
-            </div>
-            <div class="noticia-card noticia-small">
-              <div class="noticia-img noticia-img-sm" style="background: linear-gradient(135deg,#4CAF50 0%,#2e7d32 100%)">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
-                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
-                  <path d="m9 12 2 2 4-4" stroke="white"/>
-                </svg>
-              </div>
-              <div class="noticia-body-sm">
-                <span class="noticia-tag noticia-tag-green">Prevenção</span>
-                <h3 class="noticia-titulo-sm">Vacinas essenciais para cães e gatos</h3>
-                <a href="#" class="noticia-link">Leia Mais →</a>
-              </div>
-            </div>
-          </div>
-          <!-- Card grande direita -->
-          <div class="noticia-card noticia-right">
-            <div class="noticia-img" style="background: linear-gradient(135deg,#9C27B0 0%,#6a0080 100%)">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-              </svg>
-            </div>
-            <div class="noticia-body">
-              <span class="noticia-tag noticia-tag-purple">Bem-estar</span>
-              <h3 class="noticia-titulo">Atividade física: quanto exercício seu pet precisa?</h3>
-              <p class="noticia-desc">Descubra a quantidade ideal de exercícios por raça e idade para manter seu animal saudável e feliz.</p>
-              <a href="#" class="noticia-link">Leia Mais →</a>
+            <div class="noticia-body-dyn">
+              <span class="noticia-tag-dyn" :class="`tag-${noticia.categoria}`">{{ getNoticiaLabel(noticia.categoria) }}</span>
+              <h3 class="noticia-titulo-dyn">{{ noticia.titulo }}</h3>
+              <p class="noticia-desc-dyn">{{ noticia.subtitulo ? noticia.subtitulo.substring(0, 100) + '...' : '' }}</p>
+              <span class="noticia-data-dyn">{{ formatNoticiaDate(noticia.publicado_em || noticia.created_at) }}</span>
             </div>
           </div>
         </div>
@@ -425,6 +394,107 @@ const favorites = ref([])
 const hasNotifications = ref(false)
 const nextAlert = ref(null)
 const isLoading = ref(true)
+const noticias = ref([])
+const loadingNoticias = ref(false)
+
+const noticiasCategorias = {
+  noticia: 'Notícia', dica: 'Dica',
+  curiosidade: 'Curiosidade', promocao: 'Promoção'
+}
+
+const getNoticiaLabel = (cat) => noticiasCategorias[cat] || cat
+
+const getNoticiaGradient = (cat) => {
+  const map = {
+    noticia: 'linear-gradient(135deg,#1155CC,#0A3080)',
+    dica: 'linear-gradient(135deg,#F07020,#c85a10)',
+    curiosidade: 'linear-gradient(135deg,#4CAF50,#2e7d32)',
+    promocao: 'linear-gradient(135deg,#E53935,#B71C1C)'
+  }
+  return map[cat] || 'linear-gradient(135deg,#607D8B,#37474F)'
+}
+
+const formatNoticiaDate = (date) => {
+  if (!date) return ''
+  return new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })
+}
+
+const fetchNoticias = async () => {
+  loadingNoticias.value = true
+  try {
+    const response = await api.get('/noticias')
+    noticias.value = (response.data.data || response.data || []).slice(0, 6)
+  } catch {
+    noticias.value = []
+  } finally {
+    loadingNoticias.value = false
+  }
+}
+
+const catBadgeStyle = {
+  noticia:     'background:#DBEAFE;color:#1D4ED8',
+  dica:        'background:#FEF3C7;color:#D97706',
+  curiosidade: 'background:#DCFCE7;color:#16A34A',
+  promocao:    'background:#FEE2E2;color:#DC2626'
+}
+
+const abrirNoticia = (noticia) => {
+  const gradient = getNoticiaGradient(noticia.categoria)
+  const badge    = catBadgeStyle[noticia.categoria] || 'background:#F1F5F9;color:#64748B'
+  const label    = getNoticiaLabel(noticia.categoria)
+  const dataFmt  = (noticia.publicado_em || noticia.created_at)
+    ? new Date(noticia.publicado_em || noticia.created_at)
+        .toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' })
+    : ''
+
+  const heroHtml = noticia.foto_capa_url
+    ? `<div style="width:100%;height:240px;overflow:hidden;position:relative">
+        <img src="${noticia.foto_capa_url}" alt="${noticia.titulo}"
+          style="width:100%;height:100%;object-fit:cover;display:block"/>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,31,68,0.65))"></div>
+       </div>`
+    : `<div style="width:100%;height:160px;background:${gradient};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:0.08;background:radial-gradient(circle at 70% 30%,white,transparent)"></div>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+       </div>`
+
+  const paragrafos = (noticia.conteudo || '')
+    .split('\n')
+    .map(p => p.trim())
+    .filter(p => p)
+    .map(p => `<p style="margin:0 0 14px;line-height:1.8;color:#374151;font-size:15px">${p}</p>`)
+    .join('')
+
+  Swal.fire({
+    html: `
+      <div style="text-align:left;font-family:inherit">
+        ${heroHtml}
+        <div style="padding:22px 24px 8px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+            <span style="${badge};font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.07em">${label}</span>
+            ${dataFmt ? `<span style="font-size:12px;color:#94A3B8;font-weight:500">${dataFmt}</span>` : ''}
+          </div>
+          <h2 style="font-size:20px;font-weight:800;color:#0A1F44;line-height:1.35;margin:0 0 10px">${noticia.titulo}</h2>
+          ${noticia.subtitulo ? `<p style="font-size:14px;color:#64748B;line-height:1.65;margin:0 0 18px;padding:12px 14px;background:#F8FAFF;border-left:3px solid #1155CC;border-radius:0 8px 8px 0;font-style:italic">${noticia.subtitulo}</p>` : ''}
+          <div style="max-height:38vh;overflow-y:auto;padding-right:6px;margin-top:2px">
+            ${paragrafos || '<p style="color:#94A3B8;font-size:14px">Sem conteúdo disponível.</p>'}
+          </div>
+        </div>
+      </div>`,
+    showConfirmButton: true,
+    confirmButtonText: 'Fechar',
+    confirmButtonColor: '#0A3080',
+    width: '660px',
+    padding: '0',
+    background: '#fff',
+    customClass: { popup: 'swal-noticia-popup', confirmButton: 'swal-noticia-btn' }
+  })
+}
 
 const cliente = ref((() => {
   try { return JSON.parse(localStorage.getItem('cliente')) } catch { return null }
@@ -571,7 +641,8 @@ onMounted(async () => {
   await Promise.allSettled([
     fetchPets(),
     fetchAlerts(),
-    fetchFavorites()
+    fetchFavorites(),
+    fetchNoticias()
   ])
   isLoading.value = false
 })
@@ -1204,7 +1275,96 @@ onMounted(async () => {
   transform: translateY(-1px);
 }
 
-/* ===== Últimas Notícias ===== */
+/* ===== Últimas Notícias dinâmicas ===== */
+.noticias-dash-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 16px;
+  color: #94A3B8;
+  font-size: 13px;
+  background: white;
+  border-radius: 14px;
+  border: 1.5px dashed #E8ECF0;
+}
+
+.noticias-loading {
+  display: flex;
+  gap: 12px;
+  overflow: hidden;
+}
+.noticia-skeleton {
+  flex: 0 0 260px;
+  height: 220px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #E8ECF0 25%, #F1F5F9 50%, #E8ECF0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+.noticias-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+.noticias-scroll::-webkit-scrollbar { height: 4px; }
+.noticias-scroll::-webkit-scrollbar-track { background: transparent; }
+.noticias-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+.noticia-card-dyn {
+  flex: 0 0 300px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #E8ECF0;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.noticia-card-dyn:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); transform: translateY(-3px); }
+
+.noticia-img-dyn {
+  width: 100%;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.noticia-img-real { width: 100%; height: 100%; object-fit: cover; }
+
+.noticia-body-dyn {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.noticia-tag-dyn {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 3px 10px; border-radius: 20px; align-self: flex-start;
+}
+.tag-noticia   { color: #1D4ED8; background: #DBEAFE; }
+.tag-dica      { color: #D97706; background: #FEF3C7; }
+.tag-curiosidade { color: #16A34A; background: #DCFCE7; }
+.tag-promocao  { color: #DC2626; background: #FEE2E2; }
+
+.noticia-titulo-dyn {
+  font-size: 15px; font-weight: 700; color: #0A1F44;
+  line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.noticia-desc-dyn {
+  font-size: 13px; color: #64748B; line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.noticia-data-dyn { font-size: 12px; color: #94A3B8; margin-top: 2px; }
+
+/* ===== Últimas Notícias (legado estático) ===== */
 .noticias-section { width: 100%; }
 
 .noticias-grid {
@@ -1925,5 +2085,29 @@ onMounted(async () => {
   .pets-scroll { grid-template-columns: repeat(3, 1fr); }
   .pet-avatar   { width: 140px; height: 140px; }
   .pet-add-circle { width: 140px; height: 140px; }
+}
+</style>
+
+<style>
+.swal-noticia-popup {
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+.swal-noticia-popup .swal2-html-container {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+.swal-noticia-popup .swal2-actions {
+  margin: 0 !important;
+  padding: 16px 24px 20px !important;
+  justify-content: flex-end !important;
+}
+.swal-noticia-btn {
+  border-radius: 10px !important;
+  padding: 10px 28px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
 }
 </style>

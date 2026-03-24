@@ -11,7 +11,9 @@ const fullScreenRoutes = [
   // Admin routes
   'adminDashboard', 'trajetos', 'cadastroTrajeto', 'detalhesTrajeto',
   'veiculos', 'cadastroVeiculo', 'editarVeiculo', 'usuarios', 'adminProdutosMarcas',
-  'adminProdutosMarcasNovo', 'adminProdutosMarcasEditar', 'adminProdutos'
+  'adminProdutosMarcasNovo', 'adminProdutosMarcasEditar', 'adminProdutos',
+  'adminNoticias', 'novaNoticia', 'editarNoticia',
+  'cadastroProduto', 'editarProduto', 'adminMarcas', ''
 ]
 const isFullScreen = computed(() => fullScreenRoutes.includes(route.name))
 </script>
