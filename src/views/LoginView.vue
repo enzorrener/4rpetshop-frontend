@@ -82,7 +82,7 @@
           <div class="form-group">
             <div class="label-row">
               <label class="form-label">Senha</label>
-              <a href="#" class="forgot-link" @click.prevent>Esqueceu a senha?</a>
+              <router-link to="/esqueci-senha" class="forgot-link">Esqueceu a senha?</router-link>
             </div>
             <div class="input-wrapper">
               <span class="input-icon">

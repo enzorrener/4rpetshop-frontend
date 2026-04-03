@@ -4,6 +4,8 @@ import CadastroClienteView from '@/views/CadastroClienteView.vue'
 import CadastroView from '@/views/CadastroView.vue'
 import LoginView from '@/views/LoginView.vue'
 import LoginFuncionarioView from '@/views/LoginFuncionarioView.vue'
+import EsqueciSenhaView from '@/views/EsqueciSenhaView.vue'
+import RedefinirSenhaView from '@/views/RedefinirSenhaView.vue'
 import CadastroPetView from '@/views/CadastroPetView.vue'
 import EditarPetView from '@/views/EditarPetView.vue'
 import DashboardView from '@/views/DashboardView.vue'
@@ -26,6 +28,8 @@ import AdminNoticiasView from '@/views/admin/AdminNoticiasView.vue'
 import CadastroNoticiaView from '@/views/admin/CadastroNoticiaView.vue'
 import CadastroProdutoView from '@/views/admin/CadastroProdutoView.vue'
 import AdminMarcasListView from '@/views/admin/AdminMarcasListView.vue'
+import AdminFuncionariosView from '@/views/admin/AdminFuncionariosView.vue'
+import CadastroFuncionarioView from '@/views/admin/CadastroFuncionarioView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +52,16 @@ const router = createRouter({
       path: '/login/funcionario',
       name: 'loginFuncionario',
       component: LoginFuncionarioView
+    },
+    {
+      path: '/esqueci-senha',
+      name: 'esqueciSenha',
+      component: EsqueciSenhaView
+    },
+    {
+      path: '/redefinir-senha',
+      name: 'redefinirSenha',
+      component: RedefinirSenhaView
     },
     {
       path: '/dashboard',
@@ -179,6 +193,21 @@ const router = createRouter({
       path: '/admin/noticias/:id',
       name: 'editarNoticia',
       component: CadastroNoticiaView
+    },
+    {
+      path: '/admin/funcionarios',
+      name: 'adminFuncionarios',
+      component: AdminFuncionariosView
+    },
+    {
+      path: '/admin/funcionarios/create',
+      name: 'cadastroFuncionario',
+      component: CadastroFuncionarioView
+    },
+    {
+      path: '/admin/funcionarios/:id',
+      name: 'editarFuncionario',
+      component: CadastroFuncionarioView
     }
   ]
 })

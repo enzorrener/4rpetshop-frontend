@@ -5,7 +5,7 @@ import { computed } from 'vue'
 const route = useRoute()
 
 const fullScreenRoutes = [
-  'cadastroCliente', 'cadastro', 'login', 'loginFuncionario',
+  'cadastroCliente', 'cadastro', 'login', 'loginFuncionario', 'esqueciSenha', 'redefinirSenha',
   'cadastroPet', 'editarPet', 'dashboard', 'editarPerfil',
   'agendarConsulta', 'meusPets', 'localizacao',
   // Admin routes
@@ -13,7 +13,8 @@ const fullScreenRoutes = [
   'veiculos', 'cadastroVeiculo', 'editarVeiculo', 'usuarios', 'adminProdutosMarcas',
   'adminProdutosMarcasNovo', 'adminProdutosMarcasEditar', 'adminProdutos',
   'adminNoticias', 'novaNoticia', 'editarNoticia',
-  'cadastroProduto', 'editarProduto', 'adminMarcas', ''
+  'cadastroProduto', 'editarProduto', 'adminMarcas',
+  'adminFuncionarios', 'cadastroFuncionario', 'editarFuncionario', ''
 ]
 const isFullScreen = computed(() => fullScreenRoutes.includes(route.name))
 </script>
