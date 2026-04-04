@@ -11,6 +11,10 @@ import EditarPetView from '@/views/EditarPetView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import EditarPerfilView from '@/views/EditarPerfilView.vue'
 import AgendarConsultaView from '@/views/AgendarConsultaView.vue'
+import AgendamentoFormView from '@/views/AgendamentoFormView.vue'
+import AgendamentoConfirmacaoView from '@/views/AgendamentoConfirmacaoView.vue'
+import AgendamentoSucessoView from '@/views/AgendamentoSucessoView.vue'
+import MinhasConsultasView from '@/views/MinhasConsultasView.vue'
 import MeusPetsView from '@/views/MeusPetsView.vue'
 import LocalizacaoView from '@/views/LocalizacaoView.vue'
 
@@ -92,6 +96,26 @@ const router = createRouter({
       path: '/agendarConsulta',
       name: 'agendarConsulta',
       component: AgendarConsultaView
+    },
+    {
+      path: '/agendamentoForm',
+      name: 'agendamentoForm',
+      component: AgendamentoFormView
+    },
+    {
+      path: '/agendamentoConfirmacao',
+      name: 'agendamentoConfirmacao',
+      component: AgendamentoConfirmacaoView
+    },
+    {
+      path: '/agendamentoSucesso',
+      name: 'agendamentoSucesso',
+      component: AgendamentoSucessoView
+    },
+    {
+      path: '/minhasConsultas',
+      name: 'minhasConsultas',
+      component: MinhasConsultasView
     },
     {
       path: '/meusPets',

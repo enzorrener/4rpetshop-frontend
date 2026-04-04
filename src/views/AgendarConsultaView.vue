@@ -30,7 +30,7 @@
         </div>
 
         <div class="aside-steps">
-          <div class="step-item" :class="{ 'step-active': true }">
+          <div class="step-item step-active">
             <div class="step-num">1</div>
             <div class="step-text">
               <span class="step-label">Escolha o Pet</span>
@@ -41,8 +41,16 @@
           <div class="step-item" :class="{ 'step-active': !!petSelecionado }">
             <div class="step-num">2</div>
             <div class="step-text">
+              <span class="step-label">Data e Horário</span>
+              <span class="step-desc">Escolha quando ser atendido</span>
+            </div>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">
               <span class="step-label">Confirmar</span>
-              <span class="step-desc">Prossiga para a consulta</span>
+              <span class="step-desc">Revise e confirme</span>
             </div>
           </div>
         </div>
@@ -64,7 +72,7 @@
           </div>
         </div>
 
-        <button v-if="petSelecionado" class="btn-confirmar-desktop" @click="$router.push('/dashboard')">
+        <button v-if="petSelecionado" class="btn-confirmar-desktop" @click="$router.push('/agendamentoForm')">
           Seguir Para Consulta
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
@@ -170,7 +178,7 @@
               </div>
               <span class="confirmar-pet-nome">{{ petSelecionado.nome_pet }}</span>
             </div>
-            <button class="btn-seguir-mobile" @click="$router.push('/dashboard')">
+            <button class="btn-seguir-mobile" @click="$router.push('/agendamentoForm')">
               Seguir Para Consulta
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>

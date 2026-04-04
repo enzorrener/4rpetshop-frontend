@@ -122,7 +122,7 @@
             </div>
             <span class="action-label">Loja</span>
           </a>
-          <router-link to="/agendarConsulta" class="action-item">
+          <router-link to="/minhasConsultas" class="action-item">
             <div class="action-icon-wrapper">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
@@ -347,7 +347,7 @@
             </div>
             <span>Meus Pets</span>
           </router-link>
-          <router-link to="/agendarConsulta" class="snav-item">
+          <router-link to="/minhasConsultas" class="snav-item">
             <div class="snav-icon" style="background:rgba(76,175,80,0.1);color:#4CAF50">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
