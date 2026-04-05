@@ -7,7 +7,7 @@ const route = useRoute()
 const fullScreenRoutes = [
   'cadastroCliente', 'cadastro', 'login', 'loginFuncionario', 'esqueciSenha', 'redefinirSenha',
   'cadastroPet', 'editarPet', 'dashboard', 'editarPerfil',
-  'agendarConsulta', 'agendamentoForm', 'agendamentoConfirmacao', 'agendamentoSucesso', 'minhasConsultas', 'meusPets', 'localizacao',
+  'agendarConsulta', 'agendamentoForm', 'agendamentoConfirmacao', 'agendamentoSucesso', 'minhasConsultas', 'meusPets', 'localizacao', 'produtos', 'produtoDetalhe', 'carrinho',
   // Admin routes
   'adminDashboard', 'trajetos', 'cadastroTrajeto', 'detalhesTrajeto',
   'veiculos', 'cadastroVeiculo', 'editarVeiculo', 'usuarios', 'adminProdutosMarcas',

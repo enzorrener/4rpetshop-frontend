@@ -129,6 +129,12 @@
             Ainda não tem uma conta?
             <router-link to="/cadastroCliente" class="cadastro-link">Cadastre-se</router-link>
           </p>
+          <router-link to="/" class="back-home-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Voltar ao início
+          </router-link>
         </div>
 
       </div>
@@ -427,11 +433,14 @@ const handleSubmit = async () => {
   color: var(--secondary-color);
   font-weight: 500;
   text-decoration: none;
+  padding: 0 !important;
+  background: transparent !important;
 }
 
 .forgot-link:hover {
   color: var(--secondary-dark);
   text-decoration: underline;
+  background: transparent !important;
 }
 
 .input-wrapper {
@@ -541,7 +550,14 @@ const handleSubmit = async () => {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── Footer ────────────────────────────────── */
-.footer-section { text-align: center; padding-bottom: 16px; }
+.footer-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 16px;
+}
 
 .footer-text { font-size: 0.875rem; color: var(--text-secondary); }
 
@@ -549,11 +565,31 @@ const handleSubmit = async () => {
   color: var(--primary-color);
   font-weight: 600;
   text-decoration: none;
+  padding: 0 !important;
+  background: transparent !important;
 }
 
 .cadastro-link:hover {
   color: var(--primary-dark);
   text-decoration: underline;
+  background: transparent !important;
+}
+
+.back-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0 !important;
+  background: transparent !important;
+  transition: color 0.2s ease;
+}
+
+.back-home-link:hover {
+  color: var(--primary-color);
+  background: transparent !important;
 }
 
 /* ── Utilitários ───────────────────────────── */

@@ -122,7 +122,7 @@
             </div>
             <span class="action-label">Loja</span>
           </a>
-          <router-link to="/minhasConsultas" class="action-item">
+          <router-link to="/agendarConsulta" class="action-item">
             <div class="action-icon-wrapper">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>

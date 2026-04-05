@@ -2,24 +2,7 @@
   <div class="localizacao-page">
 
     <!-- Navbar -->
-    <nav class="navbar">
-      <div class="navbar-container">
-        <router-link to="/" class="navbar-logo">
-          <img src="@/assets/images/logo/LogoArrendondadoPetShop.png" alt="4R Pet" class="nav-logo-img" />
-          <span class="nav-brand">
-            <span class="nav-4r">4R</span>
-            <span class="nav-pet">PET CLÍNICA</span>
-          </span>
-        </router-link>
-        <router-link to="/" class="back-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Voltar ao início
-        </router-link>
-      </div>
-    </nav>
-    <div class="navbar-separator"></div>
+    <NavBar />
 
     <!-- Main -->
     <main class="main-content">
@@ -215,6 +198,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import NavBar from '@/components/NavBar.vue'
 
 const showImageModal = ref(false)
 const showPopup = ref(false)
@@ -317,85 +301,13 @@ onUnmounted(() => {
   background: var(--bg-secondary);
 }
 
-/* ── Navbar ─────────────────────────────────── */
-.navbar {
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(12px);
-  position: sticky;
-  top: 0;
-  z-index: 10000;
-}
-
-.navbar-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-}
-
-.nav-logo-img {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.nav-brand { display: flex; align-items: baseline; gap: 3px; }
-
-.nav-4r {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--primary-color);
-}
-
-.nav-pet {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.back-link {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 0.45rem 0.875rem;
-  border-radius: var(--border-radius-lg);
-  transition: all var(--transition-fast);
-}
-
-.back-link:hover {
-  color: var(--primary-color);
-  background: rgba(17,85,204,0.06);
-}
-
-.navbar-separator {
-  height: 1px;
-  background: var(--border-color);
-  position: sticky;
-  top: 66px;
-  z-index: 9999;
-}
-
 /* ── Main ───────────────────────────────────── */
 .main-content {
   flex: 1;
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem 4rem;
+  padding: 6rem 1.5rem 4rem;
 }
 
 /* ── Page Header ────────────────────────────── */
@@ -795,9 +707,15 @@ onUnmounted(() => {
   color: rgba(255,255,255,0.65);
   text-decoration: none;
   transition: color var(--transition-fast);
+  padding: 0 !important;
+  background: transparent !important;
 }
 
-.footer-link:hover { color: #fff; }
+.footer-link:hover {
+  color: #fff;
+  background: transparent !important;
+  background-color: transparent !important;
+}
 
 .footer-link-static {
   font-size: 0.875rem;
@@ -935,7 +853,7 @@ onUnmounted(() => {
 
 /* ── Tablet (≥ 768px) ───────────────────────── */
 @media (min-width: 768px) {
-  .main-content { padding: 3rem 2rem 5rem; }
+  .main-content { padding: 6.5rem 2rem 5rem; }
 
   .page-title { font-size: 3rem; }
 
@@ -946,7 +864,7 @@ onUnmounted(() => {
 
   .map-container { height: 600px; }
 
-  .cards-col { position: sticky; top: 88px; }
+  .cards-col { position: sticky; top: 80px; }
 
   .marker-popup {
     left: 1rem;

@@ -17,6 +17,9 @@ import AgendamentoSucessoView from '@/views/AgendamentoSucessoView.vue'
 import MinhasConsultasView from '@/views/MinhasConsultasView.vue'
 import MeusPetsView from '@/views/MeusPetsView.vue'
 import LocalizacaoView from '@/views/LocalizacaoView.vue'
+import ProdutosView from '@/views/ProdutosView.vue'
+import ProdutoDetalheView from '@/views/ProdutoDetalheView.vue'
+import CarrinhoView from '@/views/CarrinhoView.vue'
 
 // Admin Views
 import AdminDashboardView from '@/views/admin/AdminDashboardView.vue'
@@ -131,6 +134,21 @@ const router = createRouter({
       path: '/localizacao',
       name: 'localizacao',
       component: LocalizacaoView
+    },
+    {
+      path: '/produtos',
+      name: 'produtos',
+      component: ProdutosView
+    },
+    {
+      path: '/produtos/:slug',
+      name: 'produtoDetalhe',
+      component: ProdutoDetalheView
+    },
+    {
+      path: '/carrinho',
+      name: 'carrinho',
+      component: CarrinhoView
     },
     // Rotas Administrativas
     {

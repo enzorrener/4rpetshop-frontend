@@ -14,6 +14,7 @@
 
         <ul class="navbar-links">
           <li><a href="#servicos" @click.prevent="scrollTo('servicos')">Serviços</a></li>
+          <li><router-link to="/produtos">Produtos</router-link></li>
           <li><a href="#sobre" @click.prevent="scrollTo('sobre')">Sobre</a></li>
           <li><a href="#contato" @click.prevent="scrollTo('contato')">Contato</a></li>
           <li><router-link to="/localizacao">Localização</router-link></li>
@@ -28,6 +29,7 @@
 
       <div class="mobile-menu" :class="{ open: menuOpen }">
         <a href="#servicos" @click="scrollTo('servicos'); menuOpen = false">Serviços</a>
+        <router-link to="/produtos" @click="menuOpen = false">Produtos</router-link>
         <a href="#sobre" @click="scrollTo('sobre'); menuOpen = false">Sobre</a>
         <a href="#contato" @click="scrollTo('contato'); menuOpen = false">Contato</a>
         <router-link to="/localizacao" @click="menuOpen = false">Localização</router-link>
