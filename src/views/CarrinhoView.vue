@@ -171,7 +171,7 @@ const gerarLinkWhatsApp = computed(() => {
   mensagem += `\n*Total: R$ ${formatPreco(totalPrice.value)}*`
   mensagem += '\n\nAguardo informações sobre frete e pagamento.'
 
-  return `https://wa.me/5511999999999?text=${encodeURIComponent(mensagem)}`
+  return `https://wa.me/5512123456789?text=${encodeURIComponent(mensagem)}`
 })
 
 // Methods

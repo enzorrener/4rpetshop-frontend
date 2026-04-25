@@ -209,7 +209,7 @@ let map = null
 const latitude = -12.148575
 const longitude = -45.000138
 
-const whatsappNumber = '5577991990039'
+const whatsappNumber = '5512123456789'
 const whatsappLink = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de saber mais sobre os serviços da 4R Pet Clínica Veterinária.`
 const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`
 

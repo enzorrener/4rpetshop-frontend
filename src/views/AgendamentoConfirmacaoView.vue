@@ -223,7 +223,7 @@
             <div class="info-card-content">
               <span class="info-card-title">Dúvidas?</span>
               <span class="info-card-text">Fale conosco pelo WhatsApp</span>
-              <a href="https://wa.me/5511999999999" target="_blank" class="info-card-link">Enviar mensagem</a>
+              <a href="https://wa.me/5512123456789" target="_blank" class="info-card-link">Enviar mensagem</a>
             </div>
           </div>
         </div>

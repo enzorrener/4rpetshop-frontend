@@ -339,7 +339,7 @@ const faixasPreco = [
   { id: '200+', label: 'Acima de R$ 200', min: 200, max: Infinity }
 ]
 
-const whatsappLink = 'https://wa.me/5511999999999?text=Olá! Vim pelo site e gostaria de mais informações.'
+const whatsappLink = 'https://wa.me/5512123456789?text=Olá! Vim pelo site e gostaria de mais informações.'
 
 // Computed
 const temFiltrosAtivos = computed(() => {

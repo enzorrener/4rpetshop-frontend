@@ -355,8 +355,8 @@ const fetchNoticias = async () => {
   }
 }
 
-// TODO: substituir pelo número real de WhatsApp (somente números com DDI)
-const whatsappNumber = '77991990039'
+// Número fictício para demonstração
+const whatsappNumber = '5512123456789'
 const whatsappLink = `https://wa.me/${whatsappNumber}?text=Olá! Gostaria de saber mais sobre os serviços da 4R Pet Clínica Veterinária.`
 
 const scrollTo = (id) => {

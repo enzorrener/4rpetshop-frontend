@@ -317,7 +317,7 @@ const zoomActive = ref(false)
 const zoomX = ref(50)
 const zoomY = ref(50)
 
-const whatsappGeral = 'https://wa.me/5511999999999?text=Olá! Vim pelo site e gostaria de mais informações.'
+const whatsappGeral = 'https://wa.me/5512123456789?text=Olá! Vim pelo site e gostaria de mais informações.'
 
 // Computed
 const calcularDesconto = computed(() => {
