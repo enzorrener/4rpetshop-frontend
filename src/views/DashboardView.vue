@@ -523,7 +523,7 @@ const checkAuth = () => {
 
 const getFotoUrl = (fotoPet) => {
   if (!fotoPet) return null
-  if (fotoPet.startsWith('http')) return fotoPet
+  if (/^(https?:|data:|\/)/.test(fotoPet)) return fotoPet
   return `https://4rpetshop.srv1211850.hstgr.cloud/storage/${fotoPet}`
 }
 

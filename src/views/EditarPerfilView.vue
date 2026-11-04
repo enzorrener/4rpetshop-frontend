@@ -345,7 +345,9 @@ onMounted(async () => {
     form.complemento = user.complemento || ''
 
     if (user.foto_cliente) {
-      photoPreview.value = 'https://4rpetshop.srv1211850.hstgr.cloud/storage/' + user.foto_cliente
+      photoPreview.value = /^(https?:|data:)/.test(user.foto_cliente)
+        ? user.foto_cliente
+        : 'https://4rpetshop.srv1211850.hstgr.cloud/storage/' + user.foto_cliente
     }
   } catch (error) {
     Swal.fire({

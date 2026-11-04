@@ -336,16 +336,6 @@ const marcas     = ref([])
 const categorias = ref([])
 const categoriaAutoPreenchida = ref(false)
 
-watch(() => form.marca_id, (novaId) => {
-  const marca = marcas.value.find(m => m.id == novaId)
-  if (marca?.categoria_id) {
-    form.categoria_id = marca.categoria_id
-    categoriaAutoPreenchida.value = true
-  } else {
-    categoriaAutoPreenchida.value = false
-  }
-})
-
 const form = reactive({
   nome:              '',
   sku:               '',
@@ -363,6 +353,16 @@ const form = reactive({
   ativo:             true,
   destaque:          false,
   em_promocao:       false
+})
+
+watch(() => form.marca_id, (novaId) => {
+  const marca = marcas.value.find(m => m.id == novaId)
+  if (marca?.categoria_id) {
+    form.categoria_id = marca.categoria_id
+    categoriaAutoPreenchida.value = true
+  } else {
+    categoriaAutoPreenchida.value = false
+  }
 })
 
 const erros = reactive({ nome: '', preco: '' })

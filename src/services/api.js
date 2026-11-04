@@ -8,4 +8,11 @@ const api = axios.create({
   }
 })
 
+// Modo demonstração: respostas fictícias, sem chamar o servidor real
+if (import.meta.env.VITE_MOCK === 'true') {
+  // Import dinâmico: o build de produção não inclui os dados fictícios
+  api.defaults.adapter = async (config) => (await import('./mock/adapter')).mockAdapter(config)
+  import('./mock/aviso').then((m) => m.mostrarAvisoDemo())
+}
+
 export default api

@@ -1,0 +1,42 @@
+# Publica a versão de demonstração (dados fictícios) no GitHub Pages.
+# Endereço: https://<usuario>.github.io/<repositorio>/
+name: Demo GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - claude/beautiful-sagan-o97xkl
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: demo-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # O index.html versionado é o compilado de produção; o build usa o fonte
+      - run: cp index.source.html index.html
+
+      - run: npm run build:demo
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist-demo
+          publish_branch: gh-pages
+          force_orphan: true

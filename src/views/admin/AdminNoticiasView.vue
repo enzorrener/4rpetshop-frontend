@@ -258,7 +258,7 @@ const confirmarExclusao = async (noticia) => {
 }
 
 onMounted(() => {
-  if (!token) { window.location.href = '/login/funcionario'; return }
+  if (!token) { window.location.href = import.meta.env.BASE_URL + 'login/funcionario'; return }
   fetchNoticias()
 })
 </script>
